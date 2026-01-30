@@ -197,6 +197,24 @@ export default function LoginPage() {
                         </div>
                     )}
 
+                    {loading && (
+                        <div style={{
+                            textAlign: 'center',
+                            marginBottom: '16px',
+                            padding: '12px',
+                            backgroundColor: auroraTheme.colors.indigo[50],
+                            borderRadius: '10px',
+                            fontSize: '13px',
+                            color: auroraTheme.colors.indigo[700],
+                            border: `1px solid ${auroraTheme.colors.indigo[100]}`
+                        }}>
+                            <span style={{ marginRight: '8px' }}>⏳</span>
+                            <strong>Connecting to server...</strong>
+                            <br />
+                            <span style={{ fontSize: '12px', opacity: 0.8 }}>(This may take ~50s on the free plan)</span>
+                        </div>
+                    )}
+
                     <form style={styles.form} onSubmit={handleLogin}>
                         <div style={styles.inputGroup}>
                             <label style={styles.label}>Email Address</label>

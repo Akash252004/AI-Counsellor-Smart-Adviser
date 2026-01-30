@@ -59,7 +59,7 @@ function AuthCallbackContent() {
     }, [searchParams, router]);
 
     const checkProfileAndRedirect = async () => {
-        setStatus('Checking profile...');
+        setStatus('Connecting to server... (This may take ~50s on free plan)');
         try {
             // Check if user has a profile
             const profileResponse = await apiClient.getProfile();
