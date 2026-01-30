@@ -399,5 +399,6 @@ async def calculate_ai_match_score(profile: dict, university: dict) -> dict:
         return {
             "match_score": 0,
             "category": "Unknown",
-            "reasoning": "AI evaluation currently unavailable."
+            "reasoning": f"AI Error: {str(e)}",
+            "error_details": str(e)
         }

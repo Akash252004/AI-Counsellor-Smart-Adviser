@@ -301,6 +301,7 @@ async def get_match_analysis(
                 "why_fits": why_fits,
                 "risks": risks,
                 "source": "AI" if match_score > 0 and ai_result.get("match_score", 0) > 0 else "Rule-based Fallback",
+                "ai_debug_error": ai_result.get("error_details"),
                 "recommendation": "Highly Recommended" if match_score >= 80 else "Good Fit" if match_score >= 60 else "Consider Carefully"
             }
         }
