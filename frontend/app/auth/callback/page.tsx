@@ -1,12 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase, authHelpers } from '@/lib/supabase';
 import { apiClient } from '@/lib/api';
 import { auroraTheme } from '@/lib/theme';
 
-export default function AuthCallbackPage() {
+// export const dynamic = 'force-dynamic'; // Suspense should handle it, but keeping dynamic is safer for auth
+
+function AuthCallbackContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [status, setStatus] = useState('Completing sign in...');
@@ -130,5 +132,13 @@ export default function AuthCallbackPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function AuthCallbackPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <AuthCallbackContent />
+        </Suspense>
     );
 }
