@@ -1,18 +1,28 @@
-import google.generativeai as genai
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
+import aiohttp
+import asyncio
+import json
+from app.config import get_settings
 
-api_key = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=api_key)
+async def list_models():
+    settings = get_settings()
+    api_key = settings.gemini_api_key_analysis
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
+    
+    print(f"Querying models with Analysis Key...")
+    
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status != 200:
+                print(f"Error {resp.status}: {await resp.text()}")
+                return
+            
+            data = await resp.json()
+            models = data.get('models', [])
+            print(f"Found {len(models)} models:")
+            for m in models:
+                if 'generateContent' in m.get('supportedGenerationMethods', []):
+                     print(f" - {m['name']} (Supports generateContent)")
 
-print("Listing available models...")
-try:
-    with open("models.txt", "w", encoding="utf-8") as f:
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                f.write(m.name + "\n")
-                print(m.name)
-except Exception as e:
-    print(f"Error: {e}")
+if __name__ == "__main__":
+    asyncio.run(list_models())

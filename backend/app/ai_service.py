@@ -353,7 +353,7 @@ async def calculate_ai_match_score(profile: dict, university: dict) -> dict:
         
         # Use direct REST API call with secondary key
         api_key = settings.gemini_api_key_analysis
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
         
         headers = {'Content-Type': 'application/json'}
         payload = {
