@@ -227,7 +227,7 @@ export default function SignupPage() {
         try {
             const { error } = await authHelpers.resendVerificationEmail(email);
             if (error) {
-                setResendMessage('Failed to resend. Please try again.');
+                setResendMessage(error.message || 'Failed to resend. Please try again.');
             } else {
                 setResendMessage('Verification email sent again!');
                 // Reset timer (optional, but good UX to prevent spam)
